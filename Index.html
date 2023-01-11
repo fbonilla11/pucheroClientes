@@ -4,19 +4,19 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Pucherito</title>
-	<link rel="stylesheet" href="Puchero.css">
+	<link rel="stylesheet" href="css/Puchero.css">
 </head>
 <body>
 	
 	<div id="Inicio">
 		<h1>¡Bienvenido al juego del puchero!</h1>
 		<form>
-			<label>
-				<p>Indique el numero de jugadores</p>
-				<input type="number" id="numJugadores">
-				<button type="submit" id="enviarNumJug">--></button>
-			</label>
 			
+			<p>Indique el numero de jugadores</p>
+			<input type="number" id="jugadoresNum" required>
+			<button type="submit" id="enviarNumJug" onclick="repartirFichas()">--></button>
+			
+			<h3 id="jugadores"> </h3>
 		</form>
 	</div>
 
@@ -35,8 +35,8 @@
 	<canvas id="myCanvas" width="300" height="300"></canvas>
 
 
-	<script src="inicio.js"></script>
-	<script src="puchero.js"></script>
-	<script src="jugadores.js"></script>
+	<script src="js/inicio.js"></script>
+	<script src="js/puchero.js"></script>
+	<script src="js/jugadores.js"></script>
 </body>
 </html>

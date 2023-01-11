@@ -9,10 +9,10 @@ const casillas = 9;
  puchero.height = 120;
  container.appendChild(puchero);
  pintarPuchero(puchero);
-<!-- Crear elementos canvas para las casillas -->
-<!-- Usar un bucle for para crear los elementos de manera automática -->
+//Crear elementos canvas para las casillas -->
+//Usar un bucle for para crear los elementos de manera automática -->
 
-<!-- Los canvas se formarán en una elipse  -->
+//Los canvas se formarán en una elipse  -->
 for (var i = 0; i < casillas; i++) {
   // Crear un elemento canvas
   var canvas = document.createElement('canvas');
@@ -115,20 +115,6 @@ for(let i=0; i < canvases.length; i++){
   else pintarCasilla(canvases[i],i+2,fichas)
 
   console.log(i+" "+(i+2)+ " "+fichas);
-}
-
-//Iniciar el juego
-
-
-
-
-
-//Jugadores
-
-let jugadoresDiv = document.getElementById('Jugadores');
-
-document.getElementById("tirarDados") = function(){
-
 }
 
 

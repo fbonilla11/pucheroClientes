@@ -11,11 +11,23 @@ class jugador{
 		this.turno;
 	}
 
-	getPuntos() = function(){
+	sumarPuntos(puntos){
+		this.numPuntos += puntos;
+	}
+
+	restarPuntos(puntos){
+		this.numPuntos -= puntos;
+	}
+
+	getPuntos(){
 		return numPuntos;
 	}
 
-	getTurno() = function(){
+	setTurno(turno){
+		this.turno = turno;
+	}
+
+	getTurno(){
 		return turno;
 	}
 }
