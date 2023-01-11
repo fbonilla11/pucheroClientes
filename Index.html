@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Pucherito</title>
+	<link rel="stylesheet" href="Puchero.css">
+</head>
+<body>
+	
+	<div id="Inicio">
+		<h1>¡Bienvenido al juego del puchero!</h1>
+		<form>
+			<label>
+				<p>Indique el numero de jugadores</p>
+				<input type="number" id="numJugadores">
+				<button type="submit" id="enviarNumJug">--></button>
+			</label>
+			
+		</form>
+	</div>
+
+
+	<div class="container">
+		
+		<div id="tablero" class="box"></div>
+	  
+	</div>
+
+	<div id="jugadores">
+		<h2></h2>
+		<button type="submit" id="tirarDados">Tirar</button>
+	</div>
+
+	<canvas id="myCanvas" width="300" height="300"></canvas>
+
+
+	<script src="inicio.js"></script>
+	<script src="puchero.js"></script>
+	<script src="jugadores.js"></script>
+</body>
+</html>
