@@ -121,53 +121,127 @@ function pintarPuchero(canvas){
 //pintarCasilla(canvases[6], 9, 3); // pinta 3 fichas en el 9
 
 
-function jugadores(){
-    var jugadores, parrafo, i;
-    var arrayJugadores=[];
-    jugadores=parseInt(prompt("¿Cuantos jugadores sois?"));
-    switch(jugadores){
-        case 2:
-            arrayJugadores=["Jugador 1","Jugador 2"];
-            parrafo=document.getElementById("jugadores").innerHTML=arrayJugadores[0];
-            parrafo=document.getElementById("jugadores2").innerHTML=arrayJugadores[1];
-        
-            break;
-        case 3:
-            arrayJugadores=["Jugador 1","Jugador 2","Jugador 3"];
-            parrafo=document.getElementById("jugadores").innerHTML=arrayJugadores[0];
-            parrafo=document.getElementById("jugadores2").innerHTML=arrayJugadores[1];
-            parrafo=document.getElementById("jugadores3").innerHTML=arrayJugadores[2];
-        
-            break;
-        case 4:
-            arrayJugadores=["Jugador 1","Jugador 2","Jugador 3","Jugador 4"];
-            parrafo=document.getElementById("jugadores").innerHTML=arrayJugadores[0];
-            parrafo=document.getElementById("jugadores2").innerHTML=arrayJugadores[1];
-            parrafo=document.getElementById("jugadores3").innerHTML=arrayJugadores[2];
-            parrafo=document.getElementById("jugadores4").innerHTML=arrayJugadores[3];
-        
-            break;
-        case 5:
-            arrayJugadores=["Jugador 1","Jugador 2","Jugador 3","Jugador 4","Jugador 5"];
-            parrafo=document.getElementById("jugadores").innerHTML=arrayJugadores[0];
-            parrafo=document.getElementById("jugadores2").innerHTML=arrayJugadores[1];
-            parrafo=document.getElementById("jugadores3").innerHTML=arrayJugadores[2];
-            parrafo=document.getElementById("jugadores4").innerHTML=arrayJugadores[3];
-            parrafo=document.getElementById("jugadores5").innerHTML=arrayJugadores[4];
-        
-            break;
-        case 6:
-            arrayJugadores=["Jugador 1","Jugador 2","Jugador 3","Jugador 4","Jugador 5","Jugador 6"];
-            parrafo=document.getElementById("jugadores").innerHTML=arrayJugadores[0];
-            parrafo=document.getElementById("jugadores2").innerHTML=arrayJugadores[1];
-            parrafo=document.getElementById("jugadores3").innerHTML=arrayJugadores[2];
-            parrafo=document.getElementById("jugadores4").innerHTML=arrayJugadores[3];
-            parrafo=document.getElementById("jugadores5").innerHTML=arrayJugadores[4];
-            parrafo=document.getElementById("jugadores6").innerHTML=arrayJugadores[5];
-        
-            break;                                        
-    } 
+
+class Jugador{
+
+	numPuntos;
+
+	constructor(numPuntos){
+
+		this.numPuntos = numPuntos;
+		this.turno;
+	}
+
+	sumarPuntos(puntos){
+		this.numPuntos += puntos;
+	}
+
+	restarPuntos(puntos){
+		this.numPuntos -= puntos;
+	}
+
+	getPuntos(){
+		return this.numPuntos;
+	}
+
+	setTurno(turno){
+		this.turno = turno;
+	}
+
+	getTurno(){
+		return this.turno;
+	}
 }
+
+
+function jugadores(){
+
+    var jugadores;
+
+    jugadores=parseInt(prompt("¿Cuantos jugadores sois?"));
+
+    if(jugadores > 1 && jugadores < 7){
+
+        let fichas = 60 / jugadores;
+
+        const jugador1 = new Jugador(fichas);
+        const jugador2 = new Jugador(fichas);
+        const jugador3 = new Jugador(fichas);
+        const jugador4 = new Jugador(fichas);
+        const jugador5 = new Jugador(fichas);
+        const jugador6 = new Jugador(fichas);
+
+        switch(jugadores){
+            case 2:
+    
+                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
+                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
+            
+                break;
+            case 3:
+            
+                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
+                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
+                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
+            
+                break;
+            case 4:
+
+                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
+                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
+                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
+                document.getElementById("jugadores4").innerHTML = "El jugador 4 comienza con: " + jugador4.getPuntos() + " fichas";
+
+                break;
+
+            case 5:
+
+                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
+                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
+                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
+                document.getElementById("jugadores4").innerHTML = "El jugador 4 comienza con: " + jugador4.getPuntos() + " fichas";
+                document.getElementById("jugadores5").innerHTML = "El jugador 5 comienza con: " + jugador5.getPuntos() + " fichas";
+                break;
+
+            case 6:
+
+                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
+                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
+                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
+                document.getElementById("jugadores4").innerHTML = "El jugador 4 comienza con: " + jugador4.getPuntos() + " fichas";
+                document.getElementById("jugadores5").innerHTML = "El jugador 5 comienza con: " + jugador5.getPuntos() + " fichas";
+                document.getElementById("jugadores6").innerHTML = "El jugador 6 comienza con: " + jugador6.getPuntos() + " fichas";
+            
+                break;                                        
+        } 
+
+
+    }else{
+
+        alert("¡El numero de jugadores debe estar entre 2 y 6!");
+
+    }
+
+    
+}
+
+
+function turnos(){
+
+    
+
+
+
+
+
+}
+
+
+
+
+
+
+
 var casilla2= [];
 var casilla3= [];
 var casilla4= [];
@@ -179,6 +253,7 @@ var casilla9= [];
 var casilla10= [];
 var casilla11= [];
 var i=0,j=0,l=0,x=0,z=0,a=0,c=0,f=0,q=0;
+
 function Tirada(){
     var dado1,dado2,suma, max=6, min=1;
     dado1=Math.floor(Math.random()*(max - min) + min);
