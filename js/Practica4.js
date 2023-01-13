@@ -129,7 +129,6 @@ class Jugador{
 	constructor(numPuntos){
 
 		this.numPuntos = numPuntos;
-		this.turno;
 	}
 
 	sumarPuntos(puntos){
@@ -143,26 +142,20 @@ class Jugador{
 	getPuntos(){
 		return this.numPuntos;
 	}
-
-	setTurno(turno){
-		this.turno = turno;
-	}
-
-	getTurno(){
-		return this.turno;
-	}
+    
 }
+
+const arrayJug = [];
 
 
 function jugadores(){
 
-    var jugadores;
-
-    jugadores=parseInt(prompt("¿Cuantos jugadores sois?"));
-
+    const jugadores = parseInt(prompt("¿Cuantos jugadores sois?"));
+    const fichas = 60 / jugadores;
+    
     if(jugadores > 1 && jugadores < 7){
 
-        let fichas = 60 / jugadores;
+        alert(jugadores);
 
         const jugador1 = new Jugador(fichas);
         const jugador2 = new Jugador(fichas);
@@ -172,49 +165,47 @@ function jugadores(){
         const jugador6 = new Jugador(fichas);
 
         switch(jugadores){
+
             case 2:
     
-                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
-                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
-            
+                arrayJug.push(jugador1);
+                arrayJug.push(jugador2);
+
                 break;
             case 3:
             
-                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
-                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
-                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
+                arrayJug.push(jugador1);
+                arrayJug.push(jugador2);
+                arrayJug.push(jugador3);
             
                 break;
             case 4:
 
-                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
-                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
-                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
-                document.getElementById("jugadores4").innerHTML = "El jugador 4 comienza con: " + jugador4.getPuntos() + " fichas";
-
+                arrayJug.push(jugador1);
+                arrayJug.push(jugador2);
+                arrayJug.push(jugador3);
+                arrayJug.push(jugador4);
                 break;
 
             case 5:
 
-                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
-                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
-                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
-                document.getElementById("jugadores4").innerHTML = "El jugador 4 comienza con: " + jugador4.getPuntos() + " fichas";
-                document.getElementById("jugadores5").innerHTML = "El jugador 5 comienza con: " + jugador5.getPuntos() + " fichas";
-                break;
+                arrayJug.push(jugador1);
+                arrayJug.push(jugador2);
+                arrayJug.push(jugador3);
+                arrayJug.push(jugador4);
+                arrayJug.push(jugador5);
+            break;
 
             case 6:
 
-                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
-                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
-                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
-                document.getElementById("jugadores4").innerHTML = "El jugador 4 comienza con: " + jugador4.getPuntos() + " fichas";
-                document.getElementById("jugadores5").innerHTML = "El jugador 5 comienza con: " + jugador5.getPuntos() + " fichas";
-                document.getElementById("jugadores6").innerHTML = "El jugador 6 comienza con: " + jugador6.getPuntos() + " fichas";
-            
-                break;                                        
-        } 
-
+                arrayJug.push(jugador1);
+                arrayJug.push(jugador2);
+                arrayJug.push(jugador3);
+                arrayJug.push(jugador4);
+                arrayJug.push(jugador5);
+                arrayJug.push(jugador6);
+           break;                                        
+        }
 
     }else{
 
@@ -223,21 +214,8 @@ function jugadores(){
     }
 
     
-}
-
-
-function turnos(){
-
     
-
-
-
-
-
 }
-
-
-
 
 
 
