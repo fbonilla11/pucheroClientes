@@ -129,7 +129,6 @@ class Jugador{
 	constructor(numPuntos){
 
 		this.numPuntos = numPuntos;
-		this.turno;
 	}
 
 	sumarPuntos(puntos){
@@ -144,26 +143,27 @@ class Jugador{
 		return this.numPuntos;
 	}
 
-	setTurno(turno){
-		this.turno = turno;
-	}
-
-	getTurno(){
-		return this.turno;
-	}
 }
 
+//Creamos un array para guardar a todos los jugadores
+const arrayJug = [];
 
+//Declaramos una variable global para los turnos
+let turnos = -1;
+
+//Funcion de inicio que se encarga de definir el nº de jugadores que participan y los incluye en el array principal
 function jugadores(){
 
-    var jugadores;
+    //Pedimos el numero de jugadores
+    var jugadores=parseInt(prompt("¿Cuantos jugadores sois?"));
 
-    jugadores=parseInt(prompt("¿Cuantos jugadores sois?"));
+    //Comprobamos que hay entre 2 y 6 jugadores
+    if(jugadores > 1 && jugadores < 7) {
 
-    if(jugadores > 1 && jugadores < 7){
-
+        //Repartimos las fichas necesarias segun el tipo de jugadores que tengamos
         let fichas = 60 / jugadores;
 
+        //Instanciamos las clase Jugador para todos los jugadores posibles, (ya que solo hay 6 como maximo)
         const jugador1 = new Jugador(fichas);
         const jugador2 = new Jugador(fichas);
         const jugador3 = new Jugador(fichas);
@@ -171,46 +171,33 @@ function jugadores(){
         const jugador5 = new Jugador(fichas);
         const jugador6 = new Jugador(fichas);
 
+        //Segun el numero de jugadores vamos a ir metiendo en el array los jugadores necesarios
         switch(jugadores){
             case 2:
     
-                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
-                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
-            
+                arrayJug.push(jugador1, jugador2);
+
                 break;
             case 3:
             
-                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
-                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
-                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
+                arrayJug.push(jugador1, jugador2, jugador3);
             
                 break;
             case 4:
 
-                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
-                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
-                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
-                document.getElementById("jugadores4").innerHTML = "El jugador 4 comienza con: " + jugador4.getPuntos() + " fichas";
+                arrayJug.push(jugador1, jugador2, jugador3, jugador4);
 
                 break;
 
             case 5:
 
-                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
-                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
-                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
-                document.getElementById("jugadores4").innerHTML = "El jugador 4 comienza con: " + jugador4.getPuntos() + " fichas";
-                document.getElementById("jugadores5").innerHTML = "El jugador 5 comienza con: " + jugador5.getPuntos() + " fichas";
+                arrayJug.push(jugador1, jugador2, jugador3, jugador4, jugador5);
+
                 break;
 
             case 6:
-
-                document.getElementById("jugadores").innerHTML = "El jugador 1 comienza con: " + jugador1.getPuntos() + " fichas";
-                document.getElementById("jugadores2").innerHTML = "El jugador 2 comienza con: " + jugador2.getPuntos() + " fichas";
-                document.getElementById("jugadores3").innerHTML = "El jugador 3 comienza con: " + jugador3.getPuntos() + " fichas";
-                document.getElementById("jugadores4").innerHTML = "El jugador 4 comienza con: " + jugador4.getPuntos() + " fichas";
-                document.getElementById("jugadores5").innerHTML = "El jugador 5 comienza con: " + jugador5.getPuntos() + " fichas";
-                document.getElementById("jugadores6").innerHTML = "El jugador 6 comienza con: " + jugador6.getPuntos() + " fichas";
+                
+                arrayJug.push(jugador1, jugador2, jugador3, jugador4, jugador5, jugador6);
             
                 break;                                        
         } 
@@ -226,20 +213,27 @@ function jugadores(){
 }
 
 
-function turnos(){
+function turnosTirar(){
 
-    
+    turnos++;
 
+    alert(turnos);
 
+    if(turnos > arrayJug.length-1){
 
+        turnos = -1;
+        
 
+    }else{
+
+        arrayJug[turnos].restarPuntos(1);
+
+        document.getElementById("turnos").innerHTML = "Es el turno del Jugador " + (turnos + 1);
+        document.getElementById("jugadores").innerHTML = "El jugador " + (turnos + 1) + " tiene " + arrayJug[turnos].getPuntos() + " puntos";
+        
+    }
 
 }
-
-
-
-
-
 
 
 var casilla2= [];
@@ -260,6 +254,8 @@ function Tirada(){
     dado2=Math.floor(Math.random()*(max - min) + min);
     //dado1=1;
     //dado2=2;
+
+    turnosTirar();
     suma=dado1+dado2;
     //alert(suma);
     switch(suma){
@@ -393,4 +389,6 @@ function Tirada(){
             alert(suma);
             break;
     }
+
+    
 }
