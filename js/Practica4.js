@@ -121,14 +121,16 @@ function pintarPuchero(canvas){
 //pintarCasilla(canvases[6], 9, 3); // pinta 3 fichas en el 9
 
 
-
+//Creamos la clase jugador
 class Jugador{
 
 	numPuntos;
+    nombre;
 
-	constructor(numPuntos){
+	constructor(numPuntos, nombre){
 
 		this.numPuntos = numPuntos;
+        this.nombre = nombre;
 	}
 
 	sumarPuntos(puntos){
@@ -143,6 +145,10 @@ class Jugador{
 		return this.numPuntos;
 	}
 
+    getNombre(){
+        return this.nombre;
+    }
+
 }
 
 //Creamos un array para guardar a todos los jugadores
@@ -152,24 +158,23 @@ const arrayJug = [];
 let turnos = -1;
 
 //Funcion de inicio que se encarga de definir el nº de jugadores que participan y los incluye en el array principal
-function jugadores(){
+function repartirFichas(){
 
     //Pedimos el numero de jugadores
     var jugadores=parseInt(prompt("¿Cuantos jugadores sois?"));
 
     //Comprobamos que hay entre 2 y 6 jugadores
-    if(jugadores > 1 && jugadores < 7) {
+    if(jugadores > 1 && jugadores < 6) {
 
         //Repartimos las fichas necesarias segun el tipo de jugadores que tengamos
         let fichas = 60 / jugadores;
 
         //Instanciamos las clase Jugador para todos los jugadores posibles, (ya que solo hay 6 como maximo)
-        const jugador1 = new Jugador(fichas);
-        const jugador2 = new Jugador(fichas);
-        const jugador3 = new Jugador(fichas);
-        const jugador4 = new Jugador(fichas);
-        const jugador5 = new Jugador(fichas);
-        const jugador6 = new Jugador(fichas);
+        const jugador1 = new Jugador(fichas, "Jugador 1");
+        const jugador2 = new Jugador(fichas, "Jugador 2");
+        const jugador3 = new Jugador(fichas, "Jugador 3");
+        const jugador4 = new Jugador(fichas, "Jugador 4");
+        const jugador5 = new Jugador(fichas, "Jugador 5");
 
         //Segun el numero de jugadores vamos a ir metiendo en el array los jugadores necesarios
         switch(jugadores){
@@ -193,32 +198,26 @@ function jugadores(){
 
                 arrayJug.push(jugador1, jugador2, jugador3, jugador4, jugador5);
 
-                break;
-
-            case 6:
-                
-                arrayJug.push(jugador1, jugador2, jugador3, jugador4, jugador5, jugador6);
-            
-                break;                                        
+                break;                                     
         } 
 
 
     }else{
 
-        alert("¡El numero de jugadores debe estar entre 2 y 6!");
+        alert("¡El numero de jugadores debe estar entre 2 y 5!");
 
     }
 
     
 }
 
-
+//Creamos la funcion turnosTirar, para ir definiendo los turnos
 function turnosTirar(){
 
+    //Como ya tenemos declarada una variable para los turnos, hacemos que por cada llamada que reciba esta funcion se incremente el valor en 1
     turnos++;
 
-    alert(turnos);
-
+    //Comprobamos que el valor de los turnos no sea mayor que el numero de jugadores, y si lo es, reincializamos el valor de los turnos (ERROR -> funciona correctamente excpeto que al llegar al utlimo turno hay que pulsar dos veces el boton para que se reinicie)
     if(turnos > arrayJug.length-1){
 
         turnos = -1;
@@ -226,169 +225,241 @@ function turnosTirar(){
 
     }else{
 
+        //Restamos una ficha al jugador del turno que toque
         arrayJug[turnos].restarPuntos(1);
 
-        document.getElementById("turnos").innerHTML = "Es el turno del Jugador " + (turnos + 1);
-        document.getElementById("jugadores").innerHTML = "El jugador " + (turnos + 1) + " tiene " + arrayJug[turnos].getPuntos() + " puntos";
+        document.getElementById("turnos").innerHTML = "Es el turno de " + arrayJug[turnos].getNombre();
         
     }
 
 }
 
 
-var casilla2= [];
-var casilla3= [];
-var casilla4= [];
-var casilla5= [];
-var casilla6= [];
-var casilla8= [];
-var casilla7= [];
-var casilla9= [];
-var casilla10= [];
-var casilla11= [];
-var i=0,j=0,l=0,x=0,z=0,a=0,c=0,f=0,q=0;
+//Creamos la clase Casilla
+class Casilla{
 
+    fichas=0;
+    maxFichas;
+
+    constructor(maxFichas){
+        this.fichas=0;
+        this.maxFichas = maxFichas;
+    }
+
+    rellenarCasilla(){
+        this.fichas++;
+    }
+
+    getFichas(){
+        return this.fichas;
+    }
+
+    getMaxFichas(){
+        return this.maxFichas;
+    }
+
+    setFichas(fichas){
+        this.fichas = fichas;
+    }
+ 
+}
+
+//Instanciamos una clase Casilla por cada casilla del tablero
+var casilla2= new Casilla(2);
+var casilla3= new Casilla(3);
+var casilla4= new Casilla(4);
+var casilla5= new Casilla(5);
+var casilla6= new Casilla(6);
+var casilla8= new Casilla(8);
+var casilla7= new Casilla(7);
+var casilla9= new Casilla(9);
+var casilla10= new Casilla(10);
+var casilla11= new Casilla(11);
+
+var i=0,j=0,l=0,x=0,z=0,a=0,c=0,f=0,q=0, m=0;
+
+//Funcion principal dentro de todo el juego, es la funcion que maneja las tiradas, llama a la funcion de los turnos, pinta las casillas, las resetea, suma los puntos en caso de que sea necesario y por ultimo se encarga de mantener actualizados los marcadores de puntos
 function Tirada(){
-    var dado1,dado2,suma, max=6, min=1;
+
+    var dado1,dado2,suma, max=7, min=1;
+
     dado1=Math.floor(Math.random()*(max - min) + min);
     dado2=Math.floor(Math.random()*(max - min) + min);
-    //dado1=1;
-    //dado2=2;
-
-    turnosTirar();
     suma=dado1+dado2;
-    //alert(suma);
+
+    //Imprimimos los dados en el documento html
+    document.getElementById("dado1").innerHTML = dado1;
+    document.getElementById("dado2").innerHTML = dado2;
+
+    //LLamamos a la funcion de los turnos para ir estableciendo los turnos
+    turnosTirar();
+
+    //Pintar las casillas y sumar puntos si se llenan las casillas
     switch(suma){
         case 2:
-            casilla2.push("Ficha");
-            if(i<=casilla2.length){
+            casilla2.rellenarCasilla();
+            if(i<=casilla2.getMaxFichas()){
                 pintarCasilla(canvases[suma-2],suma,i+1);
                 i++;
             }
-           if(casilla2.length==3){
-                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al jugador");
+           if(casilla2.getFichas()==2){
+                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al " + arrayJug[turnos].getNombre());
                 pintarCasilla(canvases[suma-2],suma,0);
                 i=0;
-                casilla2.length=0;
+                casilla2.setFichas(0);
+                arrayJug[turnos].sumarPuntos(2);
             }
             break;
         case 3:
-            casilla3.push("Ficha");
-            if(j<=casilla3.length){
+            casilla3.rellenarCasilla();
+            if(j<=casilla3.getMaxFichas()){
                 pintarCasilla(canvases[suma-2],suma,j+1);
                 j++;
             }
-           if(casilla3.length==4){
-                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al jugador");
+           if(casilla3.getFichas()==3){
+                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al " + arrayJug[turnos].getNombre());
                 pintarCasilla(canvases[suma-2],suma,0);
                 j=0;
-                casilla3.length=0;
+                casilla3.setFichas(0);
+                arrayJug[turnos].sumarPuntos(3);
            }
             break;
+
         case 4:
-            casilla4.push("Ficha");
-            if(l<=casilla4.length){
+            casilla4.rellenarCasilla();
+            if(l<=casilla4.getMaxFichas()){
                 pintarCasilla(canvases[suma-2],suma,l+1);
                 l++;
             }
-           if(casilla4.length==5){
-                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al jugador");
+           if(casilla4.getFichas()==4){
+                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al " + arrayJug[turnos].getNombre());
                 pintarCasilla(canvases[suma-2],suma,0);
                 l=0;
-                casilla4.length=0;
+                casilla4.setFichas(0);
+                arrayJug[turnos].sumarPuntos(4);
            }
             break;
         case 5:
-            casilla5.push("Ficha");
-            if(x<=casilla5.length){
+            casilla5.rellenarCasilla();
+            if(x<=casilla5.getMaxFichas()){
                 pintarCasilla(canvases[suma-2],suma,x+1);
                 x++;
             }
-           if(casilla5.length==6){
-                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al jugador");
+           if(casilla5.getFichas()==5){
+                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al " + arrayJug[turnos].getNombre());
                 pintarCasilla(canvases[suma-2],suma,0);
                 x=0;
-                casilla5.length=0;
+                casilla5.setFichas(0);
+                arrayJug[turnos].sumarPuntos(5);
            }
             break;
         case 6:
-            casilla6.push("Ficha");
-            if(z<=casilla6.length){
+            casilla6.rellenarCasilla();
+            if(z<=casilla6.getMaxFichas()){
                 pintarCasilla(canvases[suma-2],suma,z+1);
                 z++;
             }
-           if(casilla6.length==7){
-                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al jugador");
+           if(casilla6.getFichas()==6){
+                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al " + arrayJug[turnos].getNombre());
                 pintarCasilla(canvases[suma-2],suma,0);
                 z=0;
-                casilla6.length=0;
+                casilla6.setFichas(0);
+                arrayJug[turnos].sumarPuntos(6);
            }
             break;
 
         case 7:
-            alert(suma);
-            break;
+            
+            //Aqui se debe rellenar el puchero de en medio con sus respectivas fichas (ERROR -> sin implementar codigo);
+            alert("Guardamos ficha en el puchero!");
+            //pintarCasilla(canvases[],suma,m+1);
+            m++;break;
 
         case 8:
-            casilla8.push("Ficha");
-            if(c<=casilla8.length){
+            casilla8.rellenarCasilla();
+            if(c<=casilla8.getMaxFichas()){
                 pintarCasilla(canvases[suma-3],suma,c+1);
                 c++;
             }
-           if(casilla8.length==9){
-                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al jugador");
+           if(casilla8.getFichas()==8){
+                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al " + arrayJug[turnos].getNombre());
                 pintarCasilla(canvases[suma-3],suma,0);
                 c=0;
-                casilla8.length=0;
+                casilla8.setFichas(0);
+                arrayJug[turnos].sumarPuntos(8);
            }
             break;
 
         case 9:
-            casilla9.push("Ficha");
-            if(a<=casilla9.length){
+            casilla9.rellenarCasilla();
+            if(a<=casilla9.getMaxFichas()){
                 pintarCasilla(canvases[suma-3],suma,a+1);
                 a++;
             }
-           if(casilla9.length==10){
-                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al jugador");
+           if(casilla9.getFichas()==9){
+                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al " + arrayJug[turnos].getNombre());
                 pintarCasilla(canvases[suma-3],suma,0);
                 a=0;
-                casilla9.length=0;
+                casilla9.setFichas(0);
+                arrayJug[turnos].sumarPuntos(9);
            }
             break;
 
         case 10:
-            casilla10.push("Ficha");
-            if(f<=casilla10.length){
+            casilla10.rellenarCasilla();
+            if(f<=casilla10.getMaxFichas()){
                 pintarCasilla(canvases[suma-3],suma,f+1);
                 a++;
             }
-           if(casilla10.length==11){
-                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al jugador");
+           if(casilla10.getFichas()==10){
+                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al " + arrayJug[turnos].getNombre());
                 pintarCasilla(canvases[suma-3],suma,0);
                 f=0;
-                casilla10.length=0;
+                casilla10.setFichas(0);
+                arrayJug[turnos].sumarPuntos(10);
            }
             break;
 
         case 11:
-            casilla11.push("Ficha");
-            if(q<=casilla11.length){
+            casilla11.rellenarCasilla();
+            if(q<=casilla11.getMaxFichas()){
                 pintarCasilla(canvases[suma-3],suma,q+1);
                 q++;
             }
-           if(casilla11.length==11){
-                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al jugador");
+           if(casilla11.getFichas()==11){
+                alert("casilla "+suma+" llena se borraran las fichas y se entregaran al " + arrayJug[turnos].getNombre());
                 pintarCasilla(canvases[suma-3],suma,0);
                 q=0;
-                casilla11.length=0;
+                casilla11.setFichas(0);
+                arrayJug[turnos].sumarPuntos(11);
            }
             break;
 
         case 12:
-            alert(suma);
+
+            alert("¡Ha salido el 12! El jugador se lleva todos los puntos del tablero");
+
+            let todosPuntos = casilla2.getFichas() + casilla3.getFichas() + casilla4.getFichas() + casilla5.getFichas() + casilla6.getFichas() + casilla8.getFichas() + casilla9.getFichas() + casilla10.getFichas() + casilla11.getFichas();
+
+            arrayJug[turnos].sumarPuntos(todosPuntos);
+
             break;
     }
 
-    
+    //LLamamos al metodo para mostrar todos los puntos
+    mostrarPuntos();
 }
+
+//Creamos un metodo que nos imprima en una lista todos los jugadores con sus respectivos puntos
+function mostrarPuntos(){
+
+    var puntos = arrayJug.map(function(jugador){
+
+        return '<ul><li>' + jugador.getNombre() + " tiene " + jugador.getPuntos()+ " puntos" + '</li></ul>';
+
+    });
+
+      document.getElementById("jugadores2").innerHTML = puntos;
+
+}
+

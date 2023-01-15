@@ -7,24 +7,29 @@
     <title>Pucherito</title>
     <link rel="stylesheet" href="css/Puchero.css">
 </head>
-<body onload="jugadores()">
-    
-      <div class="container">
-        <div id="tablero" class="box"></div>
-      </div>
-
-      <div class="container2">
-        <div id="jugadores" class="Jugadores"></div><br>
-        <div id="jugadores2" class="Jugadores"></div><br>
-        <div id="jugadores3" class="Jugadores"></div><br>
-        <div id="jugadores4" class="Jugadores"></div><br>
-        <div id="jugadores5" class="Jugadores"></div><br>
-        <div id="jugadores6" class="Jugadores"></div><br>
-        <div id="turnos"></div>
-        
-        <button onclick="Tirada()">Tirar Dados</button>
-      </div>
+  <body onload="repartirFichas()">
       
-</body>
-<script src="js/Practica4.js"></script>
+        <div class="container">
+          <div id="tablero" class="box"></div>
+        </div>
+
+        <div class="container2">
+
+          <div id="jugadores" class="Jugadores"></div><br>
+          <div id="jugadores2" class="Jugadores"></div><br>
+
+          <div id="turnos"></div>
+          <div id="containerDados">
+            <div id="dado1" class="dados"></div><br>
+            <div id="dado2" class="dados"></div><br>
+          </div>
+
+          
+          
+          <button onclick="Tirada()" id="tirarDados">Tirar Dados</button>
+
+        </div>
+        <script src="js/Practica4.js"></script>
+  </body>
+
 </html>
