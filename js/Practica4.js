@@ -437,7 +437,7 @@ function Tirada(){
 
         case 12:
 
-            alert("¡Ha salido el 12! El jugador se lleva todos los puntos del tablero");
+            alert("¡Ha salido el 12! El "+ arrayJug[turnos].getNombre() +" se lleva todos los puntos del tablero");
 
             let todosPuntos = casilla2.getFichas() + casilla3.getFichas() + casilla4.getFichas() + casilla5.getFichas() + casilla6.getFichas() + casilla8.getFichas() + casilla9.getFichas() + casilla10.getFichas() + casilla11.getFichas();
 
